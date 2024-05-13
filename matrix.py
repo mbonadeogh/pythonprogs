@@ -73,11 +73,16 @@ class Matrix:
 
     def inversa(self, mat):
         det = self.determinante(mat)
-        matinv = self.adjunta(mat)
         mat_len = len(mat)
-        for i in range(mat_len):
-            for j in range(mat_len):
-                matinv[i][j] = matinv[i][j] / det
+        matinv = np.zeros((mat_len, mat_len))
+        if (mat_len > 1):
+            matinv = self.adjunta(mat)
+            for i in range(mat_len):
+                for j in range(mat_len):
+                    matinv[i][j] = matinv[i][j] / det
+        else:
+            if (det != 0.0):
+                matinv[0][0] = 1.0/det
         return matinv
 
     def division(self, matn, matd):
@@ -250,8 +255,8 @@ class Matrix:
         return mtr
 
 
-# # Test de operaciones con matrices
-# myMat = Matrix()
+# Test de operaciones con matrices
+myMat = Matrix()
 # M1 = [[8, 14, -6], [12, 7, 4], [-11, 3, 21]]
 # M2 = [[8, 14, -7], [12, 6, 4], [9, 3, 2]]
 # print("M1:")
@@ -289,8 +294,9 @@ class Matrix:
 # print("Determinante de c:")
 # print(myMat.determinante(c))
 
-# print("Inversa de c:")
-# print(myMat.inversa(c))
+c = np.array([[4, 2], [2, 4]])
+print("Inversa de c:")
+print(myMat.inversa(c))
 
 # print("Potencia 10 de c:")
 # print(myMat.potencia(c, 10))
